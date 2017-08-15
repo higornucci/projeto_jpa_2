@@ -50,6 +50,10 @@ public class Produto {
 		this.categorias.addAll(Arrays.asList(categorias));
 	}
 
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
 	public String getLinkDaFoto() {
 		return linkDaFoto;
 	}
