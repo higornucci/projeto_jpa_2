@@ -21,9 +21,9 @@ public class JpaConfigurator {
 	public DataSource getDataSource() {
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-	    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	    dataSource.setUrl("jdbc:mysql://localhost/projeto_jpa");
-	    dataSource.setUsername("root");
+	    dataSource.setDriverClassName("org.postgresql.Driver");
+	    dataSource.setUrl("jdbc:postgresql://localhost/projeto_jpa");
+	    dataSource.setUsername("postgres");
 	    dataSource.setPassword("root");
 
 	    return dataSource;
@@ -41,7 +41,7 @@ public class JpaConfigurator {
 
 		Properties props = new Properties();
 
-		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.setProperty("hibernate.show_sql", "true");
 		props.setProperty("hibernate.hbm2ddl.auto", "update");
 

@@ -1,18 +1,15 @@
 package br.com.caelum.dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.com.caelum.model.Categoria;
+import br.com.caelum.model.Loja;
+import br.com.caelum.model.Produto;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-
-import br.com.caelum.model.Categoria;
-import org.springframework.stereotype.Repository;
-
-import br.com.caelum.model.Loja;
-import br.com.caelum.model.Produto;
+import java.util.List;
 
 @Repository
 public class ProdutoDao {

@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -32,23 +34,17 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	@Bean
 	@Scope("request")
 	public List<Produto> produtos(ProdutoDao produtoDao) {
-		List<Produto> produtos = produtoDao.getProdutos();
-		
-		return produtos;
+		return produtoDao.getProdutos();
 	}
 	
 	@Bean
-	public List<Categoria> categorias(CategoriaDao categoriaDao) { 
-		List<Categoria> categorias = categoriaDao.getCategorias();
-		
-		return categorias;
+	public List<Categoria> categorias(CategoriaDao categoriaDao) {
+		return categoriaDao.getCategorias();
 	}
 	
 	@Bean
-	public List<Loja> lojas(LojaDao lojaDao) { 
-		List<Loja> lojas = lojaDao.getLojas();
-		
-		return lojas;
+	public List<Loja> lojas(LojaDao lojaDao) {
+		return lojaDao.getLojas();
 	}
 	
 	@Bean
@@ -88,6 +84,16 @@ public class Configurador extends WebMvcConfigurerAdapter {
 			}
 			
 		});
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addWebRequestInterceptor(getOpenEntityManagerInViewInterceptor());
+	}
+
+	@Bean
+	public OpenEntityManagerInViewInterceptor getOpenEntityManagerInViewInterceptor() {
+		return new OpenEntityManagerInViewInterceptor();
 	}
 	
 }
