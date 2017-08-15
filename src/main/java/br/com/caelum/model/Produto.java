@@ -34,6 +34,7 @@ public class Produto {
 	private Loja loja;
 
 	@ManyToMany
+	@JoinTable(name="CATEGORIA_PRODUTO")
 	private List<Categoria> categorias = new ArrayList<>();
 
 	public String getDescricao() {
