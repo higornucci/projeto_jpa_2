@@ -1,19 +1,19 @@
 package br.com.caelum;
 
-import java.beans.PropertyVetoException;
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
@@ -34,6 +34,11 @@ public class JpaConfigurator {
 	}
 
 	@Bean
+	public Statistics statistics(EntityManagerFactory entityManagerFactory) {
+		return entityManagerFactory.unwrap(SessionFactory.class).getStatistics();
+	}
+
+	@Bean
 	public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
@@ -47,6 +52,7 @@ public class JpaConfigurator {
 
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.setProperty("hibernate.show_sql", "true");
+		props.setProperty("hibernate.generate_statistics", "true");
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		props.setProperty("hibernate.cache.use_second_level_cache", "true");
 		props.setProperty("hibernate.cache.use_query_cache", "true");
