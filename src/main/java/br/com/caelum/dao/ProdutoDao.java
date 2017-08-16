@@ -18,7 +18,8 @@ public class ProdutoDao {
 	private EntityManager em;
 
 	public List<Produto> getProdutos() {
-		return em.createQuery("from Produto", Produto.class).getResultList();
+		return em.createQuery("select distinct p from Produto p join fetch p.categorias", Produto.class)
+				.getResultList();
 	}
 
 	public Produto getProduto(Integer id) {
