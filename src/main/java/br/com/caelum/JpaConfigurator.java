@@ -48,6 +48,8 @@ public class JpaConfigurator {
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		props.setProperty("hibernate.show_sql", "true");
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		props.setProperty("hibernate.cache.use_second_level_cache", "true");
+		props.setProperty("hibernate.cache.region.factory_class", "true");
 
 		entityManagerFactory.setJpaProperties(props);
 		return entityManagerFactory;

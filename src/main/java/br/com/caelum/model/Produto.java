@@ -6,12 +6,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Cache;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Produto {
 
 	@Id
@@ -31,6 +34,7 @@ public class Produto {
 	private Loja loja;
 	@ManyToMany
 	@JoinTable(name="CATEGORIA_PRODUTO")
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private List<Categoria> categorias = new ArrayList<>();
 	@Version
 	private int versao;
