@@ -29,6 +29,7 @@ public class JpaConfigurator {
 	    dataSource.setMinPoolSize(5);
 	    dataSource.setMaxPoolSize(15);
 	    dataSource.setNumHelperThreads(15);
+		dataSource.setIdleConnectionTestPeriod(1);
 	    return dataSource;
 	}
 
