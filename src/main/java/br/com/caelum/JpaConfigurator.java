@@ -1,10 +1,12 @@
 package br.com.caelum;
 
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,14 +20,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class JpaConfigurator {
 
 	@Bean
-	public DataSource getDataSource() {
-	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-	    dataSource.setDriverClassName("org.postgresql.Driver");
-	    dataSource.setUrl("jdbc:postgresql://localhost/projeto_jpa");
-	    dataSource.setUsername("postgres");
+	public DataSource getDataSource() throws PropertyVetoException {
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+	    dataSource.setDriverClass("org.postgresql.Driver");
+	    dataSource.setJdbcUrl("jdbc:postgresql://localhost/projeto_jpa");
+	    dataSource.setUser("postgres");
 	    dataSource.setPassword("root");
-
+	    dataSource.setMinPoolSize(5);
+	    dataSource.setMaxPoolSize(15);
+	    dataSource.setNumHelperThreads(15);
 	    return dataSource;
 	}
 
