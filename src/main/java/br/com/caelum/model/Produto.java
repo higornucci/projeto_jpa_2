@@ -21,21 +21,19 @@ public class Produto {
 	private String nome;
 	@NotEmpty
 	private String linkDaFoto;
-	
 	@NotEmpty
 	@Column(columnDefinition="TEXT")
 	private String descricao;
-	
 	@Min(20)
 	private double preco;
-	
 	@Valid
 	@ManyToOne
 	private Loja loja;
-
 	@ManyToMany
 	@JoinTable(name="CATEGORIA_PRODUTO")
 	private List<Categoria> categorias = new ArrayList<>();
+	@Version
+	private int versao;
 
 	public String getDescricao() {
 		return descricao;
@@ -91,4 +89,11 @@ public class Produto {
 		return loja;
 	}
 
+	public int getVersao() {
+		return versao;
+	}
+
+	public void setVersao(int versao) {
+		this.versao = versao;
+	}
 }
